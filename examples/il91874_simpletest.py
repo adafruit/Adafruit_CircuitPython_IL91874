@@ -7,7 +7,6 @@ Supported products:
 
 import time
 import board
-import busio
 import displayio
 import adafruit_il91874
 
@@ -20,7 +19,8 @@ epd_dc = board.D9
 display_bus = displayio.FourWire(spi, command=epd_dc, chip_select=epd_cs, baudrate=1000000)
 time.sleep(1)
 
-display = adafruit_il91874.IL91874(display_bus, width=264, height=176, highlight_color=0xff0000, rotation=90)
+display = adafruit_il91874.IL91874(display_bus, width=264, height=176, highlight_color=0xff0000,
+                                   rotation=90)
 
 g = displayio.Group()
 
