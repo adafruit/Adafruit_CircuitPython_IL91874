@@ -50,19 +50,18 @@ __version__ = "0.0.0-auto.0"
 __repo__ = "https://github.com/adafruit/Adafruit_CircuitPython_IL91874.git"
 
 _START_SEQUENCE = (
-    b"\x04\x00" # Power on
-    b"\x00\x01\xaf" # panel setting
-    b"\x30\x01\x3a" # PLL
-    b"\x01\x05\x03\x00\x2b\x2b\x09" # power setting
-    b"\x06\x03\x07\x07\x17" # booster soft start
-    b"\xf8\x02\x60\xa5" # mystery command in example code
-    b"\xf8\x02\x89\xa5" # mystery command in example code
-    b"\xf8\x02\x90\x00" # mystery command in example code
-    b"\xf8\x02\x93\xa2" # mystery command in example code
-    b"\xf8\x02\x73\x41" # mystery command in example code
-    b"\x82\x01\x12" # VCM DC
-    b"\x50\x01\x87" # CDI setting
-
+    b"\x04\x00"  # Power on
+    b"\x00\x01\xaf"  # panel setting
+    b"\x30\x01\x3a"  # PLL
+    b"\x01\x05\x03\x00\x2b\x2b\x09"  # power setting
+    b"\x06\x03\x07\x07\x17"  # booster soft start
+    b"\xf8\x02\x60\xa5"  # mystery command in example code
+    b"\xf8\x02\x89\xa5"  # mystery command in example code
+    b"\xf8\x02\x90\x00"  # mystery command in example code
+    b"\xf8\x02\x93\xa2"  # mystery command in example code
+    b"\xf8\x02\x73\x41"  # mystery command in example code
+    b"\x82\x01\x12"  # VCM DC
+    b"\x50\x01\x87"  # CDI setting
     # Look Up Tables
     # LUT1
     b"\x20\x2c\x00\x00\x00\x1a\x1a\x00\x00\x01\x00\x0a\x0a\x00\x00\x08\x00\x0e\x01\x0e\x01\x10\x00"
@@ -79,35 +78,39 @@ _START_SEQUENCE = (
     # LUTBB
     b"\x24\x2a\x90\x1a\x1a\x00\x00\x01\x20\x0a\x0a\x00\x00\x08\x84\x0e\x01\x0e\x01\x10\x10\x0a\x0a"
     b"\x00\x00\x08\x00\x04\x10\x00\x00\x05\x00\x03\x0e\x00\x00\x0a\x00\x23\x00\x00\x00\x01"
-
-    b"\x61\x04\x00\x00\x00\x00" # Resolution
-    b"\x16\x80\x00" # PDRF
+    b"\x61\x04\x00\x00\x00\x00"  # Resolution
+    b"\x16\x80\x00"  # PDRF
 )
 
-_STOP_SEQUENCE = (
-    b"\x02\x01\x17" # Power off
-)
+_STOP_SEQUENCE = b"\x02\x01\x17"  # Power off
 
 # pylint: disable=too-few-public-methods
 class IL91874(displayio.EPaperDisplay):
     """IL91874 display driver"""
+
     def __init__(self, bus, **kwargs):
         start_sequence = bytearray(_START_SEQUENCE)
 
         width = kwargs["width"]
         height = kwargs["height"]
         if "rotation" in kwargs and kwargs["rotation"] % 180 != 0:
-            w = width
-            width = height
-            height = w
+            width, height = height, width
         start_sequence[-7] = (width >> 8) & 0xFF
         start_sequence[-6] = width & 0xFF
         start_sequence[-5] = (height >> 8) & 0xFF
         start_sequence[-4] = height & 0xFF
 
-        super().__init__(bus, start_sequence, _STOP_SEQUENCE, **kwargs,
-                         ram_width=320, ram_height=300,
-                         busy_state=False,
-                         write_black_ram_command=0x10, black_bits_inverted=True,
-                         write_color_ram_command=0x13,
-                         refresh_display_command=0x12, always_toggle_chip_select=True)
+        super().__init__(
+            bus,
+            start_sequence,
+            _STOP_SEQUENCE,
+            **kwargs,
+            ram_width=320,
+            ram_height=300,
+            busy_state=False,
+            write_black_ram_command=0x10,
+            black_bits_inverted=True,
+            write_color_ram_command=0x13,
+            refresh_display_command=0x12,
+            always_toggle_chip_select=True,
+        )
