@@ -22,13 +22,15 @@ epd_cs = board.D10
 epd_dc = board.D9
 
 # Create the displayio connection to the display pins
-display_bus = displayio.FourWire(spi, command=epd_dc, chip_select=epd_cs,
-                                 baudrate=1000000)
+display_bus = displayio.FourWire(
+    spi, command=epd_dc, chip_select=epd_cs, baudrate=1000000
+)
 time.sleep(1)  # Wait a bit
 
 # Create the display object - the third color is red (0xff0000)
-display = adafruit_il91874.IL91874(display_bus, width=264, height=176,
-                                   highlight_color=0xff0000, rotation=90)
+display = adafruit_il91874.IL91874(
+    display_bus, width=264, height=176, highlight_color=0xFF0000, rotation=90
+)
 
 # Create a display group for our screen objects
 g = displayio.Group()
