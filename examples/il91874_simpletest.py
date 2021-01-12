@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2021 ladyada for Adafruit Industries
+# SPDX-License-Identifier: MIT
+
 """
   Simple test script for 2.7" 264x176 Tri-Color display shield
   Supported products:
