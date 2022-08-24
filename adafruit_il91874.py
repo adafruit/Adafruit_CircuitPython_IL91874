@@ -69,7 +69,7 @@ _STOP_SEQUENCE = b"\x02\x01\x17"  # Power off
 class IL91874(displayio.EPaperDisplay):
     """IL91874 display driver"""
 
-    def __init__(self, bus, **kwargs):
+    def __init__(self, bus: displayio.FourWire, **kwargs) -> None:
         start_sequence = bytearray(_START_SEQUENCE)
 
         width = kwargs["width"]
