@@ -65,6 +65,7 @@ _START_SEQUENCE = (
 
 _STOP_SEQUENCE = b"\x02\x01\x17"  # Power off
 
+
 # pylint: disable=too-few-public-methods
 class IL91874(displayio.EPaperDisplay):
     """IL91874 display driver"""
