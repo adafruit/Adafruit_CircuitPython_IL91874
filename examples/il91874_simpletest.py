@@ -58,7 +58,7 @@ with open("/display-ruler.bmp", "rb") as f:
     g.append(t)
 
     # Place the display group on the screen (does not refresh)
-    display.show(g)
+    display.root_group = g
 
     # Show the image on the display
     display.refresh()
