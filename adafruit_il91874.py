@@ -25,7 +25,13 @@ Implementation Notes
 
 """
 
-import displayio
+# Compatibility with both CircuitPython 8.x.x and 9.x.x.
+# Remove after 8.x.x is no longer a supported release.
+try:
+    from epaperdisplay import EPaperDisplay
+    from fourwire import FourWire
+except ImportError:
+    from displayio import EPaperDisplay, FourWire
 
 __version__ = "0.0.0+auto.0"
 __repo__ = "https://github.com/adafruit/Adafruit_CircuitPython_IL91874.git"
@@ -67,10 +73,10 @@ _STOP_SEQUENCE = b"\x02\x01\x17"  # Power off
 
 
 # pylint: disable=too-few-public-methods
-class IL91874(displayio.EPaperDisplay):
+class IL91874(EPaperDisplay):
     """IL91874 display driver"""
 
-    def __init__(self, bus: displayio.FourWire, **kwargs) -> None:
+    def __init__(self, bus: FourWire, **kwargs) -> None:
         start_sequence = bytearray(_START_SEQUENCE)
 
         width = kwargs["width"]

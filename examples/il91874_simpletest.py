@@ -14,6 +14,15 @@
 import time
 import board
 import displayio
+
+# Compatibility with both CircuitPython 8.x.x and 9.x.x.
+# Remove after 8.x.x is no longer a supported release.
+try:
+    from fourwire import FourWire
+except ImportError:
+    # pylint: disable=ungrouped-imports
+    from displayio import FourWire
+
 import adafruit_il91874
 
 # Used to ensure the display is free in CircuitPython
@@ -27,7 +36,7 @@ epd_reset = board.D5
 epd_busy = board.D6
 
 # Create the displayio connection to the display pins
-display_bus = displayio.FourWire(
+display_bus = FourWire(
     spi, command=epd_dc, chip_select=epd_cs, reset=epd_reset, baudrate=1000000
 )
 time.sleep(1)  # Wait a bit
