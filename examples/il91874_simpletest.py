@@ -2,26 +2,20 @@
 # SPDX-License-Identifier: MIT
 
 """
-  Simple test script for 2.7" 264x176 Tri-Color display shield
-  Supported products:
-  * Adafruit 2.7" Tri-Color ePaper Display Shield
-    https://www.adafruit.com/product/4229
+Simple test script for 2.7" 264x176 Tri-Color display shield
+Supported products:
+* Adafruit 2.7" Tri-Color ePaper Display Shield
+  https://www.adafruit.com/product/4229
 
-  This program only requires the adafruit_il91874 library in /lib
-  for CircuitPython 5.0 and above which has displayio support.
+This program only requires the adafruit_il91874 library in /lib
+for CircuitPython 5.0 and above which has displayio support.
 """
 
 import time
+
 import board
 import displayio
-
-# Compatibility with both CircuitPython 8.x.x and 9.x.x.
-# Remove after 8.x.x is no longer a supported release.
-try:
-    from fourwire import FourWire
-except ImportError:
-    # pylint: disable=ungrouped-imports
-    from displayio import FourWire
+from fourwire import FourWire
 
 import adafruit_il91874
 
@@ -36,9 +30,7 @@ epd_reset = board.D5
 epd_busy = board.D6
 
 # Create the displayio connection to the display pins
-display_bus = FourWire(
-    spi, command=epd_dc, chip_select=epd_cs, reset=epd_reset, baudrate=1000000
-)
+display_bus = FourWire(spi, command=epd_dc, chip_select=epd_cs, reset=epd_reset, baudrate=1000000)
 time.sleep(1)  # Wait a bit
 
 # Create the display object - the third color is red (0xff0000)

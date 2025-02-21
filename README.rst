@@ -13,9 +13,9 @@ Introduction
     :target: https://github.com/adafruit/Adafruit_CircuitPython_IL91874/actions
     :alt: Build Status
 
-.. image:: https://img.shields.io/badge/code%20style-black-000000.svg
-    :target: https://github.com/psf/black
-    :alt: Code Style: Black
+.. image:: https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json
+    :target: https://github.com/astral-sh/ruff
+    :alt: Code Style: Ruff
 
 CircuitPython `displayio` driver for IL91874-based ePaper displays
 
@@ -71,6 +71,7 @@ Usage Example
     import board
     import busio
     import displayio
+    import fourwire
     import adafruit_il91874
 
     displayio.release_displays()
@@ -79,7 +80,7 @@ Usage Example
     epd_cs = board.D10
     epd_dc = board.D9
 
-    display_bus = displayio.FourWire(spi, command=epd_dc, chip_select=epd_cs, baudrate=1000000)
+    display_bus = fourwire.FourWire(spi, command=epd_dc, chip_select=epd_cs, baudrate=1000000)
     time.sleep(1)
 
     display = adafruit_il91874.IL91874(display_bus, width=264, height=176, highlight_color=0xff0000, rotation=90)
