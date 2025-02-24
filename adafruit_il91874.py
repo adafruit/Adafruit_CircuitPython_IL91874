@@ -25,13 +25,14 @@ Implementation Notes
 
 """
 
-# Compatibility with both CircuitPython 8.x.x and 9.x.x.
-# Remove after 8.x.x is no longer a supported release.
+from epaperdisplay import EPaperDisplay
+
 try:
-    from epaperdisplay import EPaperDisplay
+    import typing
+
     from fourwire import FourWire
 except ImportError:
-    from displayio import EPaperDisplay, FourWire
+    pass
 
 __version__ = "0.0.0+auto.0"
 __repo__ = "https://github.com/adafruit/Adafruit_CircuitPython_IL91874.git"
