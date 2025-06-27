@@ -47,25 +47,20 @@ display = adafruit_il91874.IL91874(
 g = displayio.Group()
 
 # Display a ruler graphic from the root directory of the CIRCUITPY drive
-with open("/display-ruler.bmp", "rb") as f:
-    pic = displayio.OnDiskBitmap(f)
-    # Create a Tilegrid with the bitmap and put in the displayio group
-    # CircuitPython 6 & 7 compatible
-    t = displayio.TileGrid(
-        pic, pixel_shader=getattr(pic, "pixel_shader", displayio.ColorConverter())
-    )
-    # CircuitPython 7 compatible only
-    # t = displayio.TileGrid(pic, pixel_shader=pic.pixel_shader)
-    g.append(t)
 
-    # Place the display group on the screen (does not refresh)
-    display.root_group = g
+pic = displayio.OnDiskBitmap("/display-ruler.bmp")
+# Create a Tilegrid with the bitmap and put in the displayio group
+t = displayio.TileGrid(pic, pixel_shader=pic.pixel_shader)
+g.append(t)
 
-    # Show the image on the display
-    display.refresh()
+# Place the display group on the screen (does not refresh)
+display.root_group = g
 
-    print("refreshed")
+# Show the image on the display
+display.refresh()
 
-    # Do Not refresh the screen more often than every 180 seconds
-    #   for eInk displays! Rapid refreshes will damage the panel.
-    time.sleep(180)
+print("refreshed")
+
+# Do Not refresh the screen more often than every 180 seconds
+#   for eInk displays! Rapid refreshes will damage the panel.
+time.sleep(180)
